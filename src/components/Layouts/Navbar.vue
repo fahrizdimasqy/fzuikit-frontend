@@ -17,12 +17,12 @@ import Logo from "./Logo.vue";
         >
           Sign In
         </RouterLink>
-        <a
-          href="register.html"
+        <RouterLink
+          to="/register"
           class="px-8 py-3 text-base font-medium text-white border border-transparent rounded-full bg-navy hover:bg-navy md:py-2 md:text-sm md:px-8 hover:shadow"
         >
           Sign Up
-        </a>
+        </RouterLink>
       </div>
       <div
         class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
