@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
+RouterLink;
 //deklarasi Props
 defineProps({
   title: String,

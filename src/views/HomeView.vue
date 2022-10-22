@@ -1,6 +1,24 @@
 <script setup>
 import CategorieCard from "../components/CategorieCard.vue";
 import ItemsCard from "../components/ItemsCard.vue";
+import { ref } from "vue";
+
+const categoriesItem = ref([
+  { id: 1, title: "Mobile UI Kit", imageUrl: "categories-1.jpg", items: 120 },
+  { id: 2, title: "Fonts", imageUrl: "categories-2.jpg", items: 200 },
+  { id: 3, title: "Fonts", imageUrl: "categories-3.jpg", items: 300 },
+  { id: 4, title: "Fonts", imageUrl: "categories-4.jpg", items: 150 },
+]);
+const items = ref([
+  {
+    id: 1,
+    title: "Mobile UI Kit",
+    imageUrl: "items-1.jpg",
+    subtitle: "test",
+  },
+  { id: 2, title: "Fonts", imageUrl: "items-2.jpg", subtitle: "test" },
+  { id: 3, title: "Fonts", imageUrl: "items-3.jpg", subtitle: "test" },
+]);
 </script>
 
 <template>
@@ -58,19 +76,25 @@ import ItemsCard from "../components/ItemsCard.vue";
         Top Categories
       </h2>
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
-        <CategorieCard title="test" imageUrl="categories-1.jpg" items="120" />
-        <CategorieCard title="test" imageUrl="categories-2.jpg" items="120" />
-        <CategorieCard title="test" imageUrl="categories-3.jpg" items="120" />
-        <CategorieCard title="test" imageUrl="categories-4.jpg" items="120" />
+        <CategorieCard
+          v-for="category in categoriesItem"
+          :title="category.title"
+          :imageUrl="category.imageUrl"
+          :items="category.item"
+          :key="category.id"
+        />
       </div>
     </div>
     <!-- Items -->
     <div class="container px-4 mx-auto my-16 md:px-12">
       <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
-        <ItemsCard title="Test" imageUrl="items-1.jpg" subtitle="UI KIT" />
-        <ItemsCard title="Test" imageUrl="items-1.jpg" subtitle="UI KIT" />
-        <ItemsCard title="Test" imageUrl="items-1.jpg" subtitle="UI KIT" />
+        <ItemsCard
+          v-for="item in items"
+          :title="item.title"
+          :imageUrl="item.imageUrl"
+          :subtitle="item.subtitle"
+        />
       </div>
     </div>
   </main>
