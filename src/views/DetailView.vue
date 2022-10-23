@@ -1,4 +1,13 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+const defaultImage = ref("gallery-3.png");
+const galleries = ref([
+  { id: 1, imageUrl: "gallery-2.png" },
+  { id: 2, imageUrl: "gallery-3.png" },
+  { id: 3, imageUrl: "gallery-4.png" },
+  { id: 4, imageUrl: "gallery-5.png" },
+]);
+</script>
 <template>
   <div class="container p-2 mx-auto my-10 max-w-7xl">
     <div class="flex flex-row flex-wrap py-4">
@@ -10,22 +19,39 @@
         </h1>
         <p class="text-gray-500">Build your next coin startup</p>
         <section id="gallery">
-          <img src="img/gallery-1.png" alt="" class="w-full mt-6 rounded-2xl" />
+          <img
+            :src="'src/assets/img/' + defaultImage"
+            alt=""
+            class="w-full mt-6 rounded-2xl"
+          />
           <div class="grid grid-cols-4 gap-4 mt-4">
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="img/gallery-2.png" class="w-full" alt="" />
-            </div>
-            <div
+            <template v-for="gallery in galleries" :key="gallery.id">
+              <div
+                @click="defaultImage = gallery.imageUrl"
+                class="overflow-hidden cursor-pointer rounded-2xl"
+                :class="{
+                  'ring-2 ring-indigo-500': defaultImage == gallery.imageUrl,
+                }"
+              >
+                <img
+                  :src="'src/assets/img/' + gallery.imageUrl"
+                  class="w-full"
+                  alt=""
+                />
+              </div>
+            </template>
+            <!-- <div
               class="overflow-hidden cursor-pointer ring-2 ring-indigo-500 rounded-2xl"
             >
-              <img src="img/gallery-3.png" class="w-full" alt="" />
+              <img src="@/assets/img/gallery-3.png" class="w-full" alt="" />
             </div>
             <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="img/gallery-4.png" class="w-full" alt="" />
+              <img src="@/assets/img/gallery-4.png" class="w-full" alt="" />
             </div>
             <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="img/gallery-5.png" class="w-full" alt="" />
+              <img src="@/assets/img/gallery-5.png" class="w-full" alt="" />
             </div>
+            !-->
           </div>
         </section>
         <section class="" id="orders">
@@ -54,7 +80,7 @@
             <div class="mb-4">
               <div class="flex mb-2">
                 <div>
-                  <img src="img/icon-figma.png" alt="" class="w-16" />
+                  <img src="@/assets/img/icon-figma.png" alt="" class="w-16" />
                 </div>
                 <div class="block mt-1 ml-4">
                   <h3 class="font-semibold text-md">Figma</h3>
@@ -65,7 +91,7 @@
             <div class="mb-4">
               <div class="flex mb-2">
                 <div>
-                  <img src="img/icon-sketch.png" alt="" class="w-16" />
+                  <img src="@/assets/img/icon-sketch.png" alt="" class="w-16" />
                 </div>
                 <div class="block mt-1 ml-4">
                   <h3 class="font-semibold text-md">Sketch</h3>
@@ -79,7 +105,7 @@
                 <li class="mb-2">
                   Customizable layers
                   <img
-                    src="img/icon-check.png"
+                    src="@/assets/img/icon-check.png"
                     class="float-right w-5 mt-1"
                     alt=""
                   />
@@ -87,7 +113,7 @@
                 <li class="mb-2">
                   Documentation
                   <img
-                    src="img/icon-check.png"
+                    src="@/assets/img/icon-check.png"
                     class="float-right w-5 mt-1"
                     alt=""
                   />
@@ -95,7 +121,7 @@
                 <li class="mb-2">
                   Icon set design
                   <img
-                    src="img/icon-check.png"
+                    src="@/assets/img/icon-check.png"
                     class="float-right w-5 mt-1"
                     alt=""
                   />
@@ -103,7 +129,7 @@
                 <li class="mb-2">
                   Pre-built UI screens
                   <img
-                    src="img/icon-check.png"
+                    src="@/assets/img/icon-check.png"
                     class="float-right w-5 mt-1"
                     alt=""
                   />
