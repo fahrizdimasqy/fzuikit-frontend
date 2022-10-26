@@ -1,12 +1,8 @@
 <script setup>
 import { ref } from "vue";
-const defaultImage = ref("gallery-3.png");
-const galleries = ref([
-  { id: 1, imageUrl: "gallery-2.png" },
-  { id: 2, imageUrl: "gallery-3.png" },
-  { id: 3, imageUrl: "gallery-4.png" },
-  { id: 4, imageUrl: "gallery-5.png" },
-]);
+import { RouterLink } from "vue-router";
+const defaultImage = ref();
+const galleries = ref({});
 </script>
 <template>
   <div class="container p-2 mx-auto my-10 max-w-7xl">
@@ -20,7 +16,7 @@ const galleries = ref([
         <p class="text-gray-500">Build your next coin startup</p>
         <section id="gallery">
           <img
-            :src="'src/assets/img/' + defaultImage"
+            :src="'@/assets/img/' + defaultImage"
             alt=""
             class="w-full mt-6 rounded-2xl"
           />
@@ -136,12 +132,12 @@ const galleries = ref([
                 </li>
               </ul>
             </div>
-            <a
-              href="checkout.html"
+            <RouterLink
+              to="/pricing"
               class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
             >
               Download Now
-            </a>
+            </RouterLink>
           </div>
         </div>
       </aside>

@@ -1,24 +1,30 @@
 <script setup>
 import CategorieCard from "../components/CategorieCard.vue";
 import ItemsCard from "../components/ItemsCard.vue";
-import { ref } from "vue";
+import axios from "axios";
+import { ref, onMounted } from "vue";
 
-const categoriesItem = ref([
-  { id: 1, title: "Mobile UI Kit", imageUrl: "categories-1.jpg", items: 120 },
-  { id: 2, title: "Fonts", imageUrl: "categories-2.jpg", items: 200 },
-  { id: 3, title: "Fonts", imageUrl: "categories-3.jpg", items: 300 },
-  { id: 4, title: "Fonts", imageUrl: "categories-4.jpg", items: 150 },
-]);
-const items = ref([
-  {
-    id: 1,
-    title: "Mobile UI Kit",
-    imageUrl: "items-1.jpg",
-    subtitle: "test",
-  },
-  { id: 2, title: "Fonts", imageUrl: "items-2.jpg", subtitle: "test" },
-  { id: 3, title: "Fonts", imageUrl: "items-3.jpg", subtitle: "test" },
-]);
+const categoriesItem = ref([]);
+const products = ref([]);
+
+const getDataCategories = () => {
+  axios.get("http://localhost:8000/api/categories").then((response) => {
+    let { data } = response.data.data;
+    categoriesItem.value = data;
+  });
+};
+
+const getDataProducts = () => {
+  axios.get("http://localhost:8000/api/products").then((response) => {
+    let { data } = response.data.data;
+    products.value = data;
+  });
+};
+
+onMounted: {
+  getDataCategories();
+  getDataProducts();
+}
 </script>
 
 <template>
@@ -78,9 +84,10 @@ const items = ref([
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
         <CategorieCard
           v-for="category in categoriesItem"
-          :title="category.title"
-          :imageUrl="category.imageUrl"
-          :items="category.item"
+          :id="category.id"
+          :title="category.name"
+          :imageUrl="category.thumbnails"
+          :items="category.products_count"
           :key="category.id"
         />
       </div>
@@ -90,10 +97,12 @@ const items = ref([
       <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
         <ItemsCard
-          v-for="item in items"
-          :title="item.title"
-          :imageUrl="item.imageUrl"
-          :subtitle="item.subtitle"
+          v-for="product in products"
+          :id="product.id"
+          :title="product.name"
+          :imageUrl="product.thumbnails"
+          :subtitle="product.subtitle"
+          :key="product.id"
         />
       </div>
     </div>
