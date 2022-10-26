@@ -8,17 +8,29 @@ const categoriesItem = ref([]);
 const products = ref([]);
 
 const getDataCategories = () => {
-  axios.get("http://localhost:8000/api/categories").then((response) => {
-    let { data } = response.data.data;
-    categoriesItem.value = data;
-  });
+  axios
+    .get("http://localhost:8000/api/categories")
+    .then((response) => {
+      let { data } = response.data.data;
+      categoriesItem.value = data;
+    })
+    .catch((error) => {
+      let { response } = error;
+      console.log(response);
+    });
 };
 
 const getDataProducts = () => {
-  axios.get("http://localhost:8000/api/products").then((response) => {
-    let { data } = response.data.data;
-    products.value = data;
-  });
+  axios
+    .get("http://localhost:8000/api/products")
+    .then((response) => {
+      let { data } = response.data.data;
+      products.value = data;
+    })
+    .catch((error) => {
+      let { response } = error;
+      console.log(response);
+    });
 };
 
 onMounted: {
