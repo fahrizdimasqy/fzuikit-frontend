@@ -1,10 +1,25 @@
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
 const form = ref({
   name: "",
   email: "",
   password: "",
+  title: "Member",
 });
+
+const handlerRegister = () => {
+  axios
+    .post("http://localhost:8000/api/register", {
+      name: form.value.name,
+      email: form.value.email,
+      password: form.value.password,
+      title: form.value.title,
+    })
+    .then((response) => {
+      console.log(response.data);
+    });
+};
 </script>
 <template>
   <main>
@@ -173,6 +188,7 @@ const form = ref({
                   </div>
                   <div class="mt-6">
                     <button
+                      @click="handlerRegister"
                       type="button"
                       class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-lg md:px-10 hover:shadow"
                     >

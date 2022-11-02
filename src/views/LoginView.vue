@@ -1,12 +1,34 @@
 <script setup>
+import axios from "axios";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
+
+const userStore = useUserStore();
+const router = useRouter();
 const form = ref({
-  uemail: "",
+  email: "",
   password: "",
 });
-function handlerLogin() {
-  alert("Login");
-}
+const handlerLogin = () => {
+  axios
+    .post("http://localhost:8000/api/login", {
+      email: form.value.email,
+      password: form.value.password,
+    })
+    .then((response) => {
+      let { data } = response.data;
+      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem("token_type", data.token_type);
+      console.log(data);
+      userStore.fetchUser();
+      router.push("/");
+    })
+    .catch((error) => {
+      let { response } = error;
+      console.log(response);
+    });
+};
 </script>
 <template>
   <main>
@@ -20,7 +42,6 @@ function handlerLogin() {
             <form>
               <div class="mb-4">
                 <label class="block mb-1" for="email">Email Address</label>
-                {{ form.email }}
                 <input
                   v-model="form.email"
                   placeholder="Type your email"
@@ -43,6 +64,8 @@ function handlerLogin() {
               </div>
               <div class="mt-6">
                 <button
+                  @keyup.enter="handlerLogin"
+                  @click="handlerLogin"
                   type="button"
                   class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-lg md:px-10 hover:shadow"
                 >

@@ -54,13 +54,15 @@ onMounted: {
               <h1
                 class="text-3xl font-bold leading-normal tracking-tight text-gray-900 sm:text-4xl md:text-5xl"
               >
-                <span class="block lg:mb-2">Design Better &</span>
+                <span class="block lg:mb-2"
+                  >Designs made by professionals &</span
+                >
                 <span class="block">Faster Than Before.</span>
               </h1>
               <p
                 class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
               >
-                Accelerate your work with our millions
+                fzuikit is there to make it easier for developers and ui/ux
                 <span class="block lg:mb-1"></span> of ready-to-use design
                 projects.
               </p>
@@ -82,17 +84,39 @@ onMounted: {
       </div>
       <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
         <img
-          class="w-full lg:w-3/4 lg:mt-8"
-          src="../assets/img/hero-image.png"
+          class="w-full lg:w-3/4 lg:mt-20 lg:ml-5"
+          src="../assets/img/undraw_design_tools_-42-tf.svg"
           alt=""
         />
       </div>
     </div>
     <!-- Categories -->
     <div class="container px-4 mx-auto my-16 md:px-12">
-      <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">
-        Top Categories
-      </h2>
+      <div class="flex justify-between">
+        <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">
+          Top Categories
+        </h2>
+        <RouterLink
+          to="/categories"
+          type="button"
+          class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">Icon description</span>
+        </RouterLink>
+      </div>
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
         <CategorieCard
           v-for="category in categoriesItem"
@@ -106,7 +130,30 @@ onMounted: {
     </div>
     <!-- Items -->
     <div class="container px-4 mx-auto my-16 md:px-12">
-      <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
+      <div class="flex justify-between">
+        <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
+        <RouterLink
+          to="/products"
+          type="button"
+          class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">Icon description</span>
+        </RouterLink>
+      </div>
+
       <div class="flex flex-wrap -mx-1 lg:-mx-4">
         <ItemsCard
           v-for="product in products"

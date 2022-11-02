@@ -4,7 +4,7 @@ import { RouterLink } from "vue-router";
 <template>
   <RouterLink to="/" class="flex items-center">
     <img
-      src="@/assets/img/logo.png"
+      src="@/assets/img/brand.png"
       class="h-8 ml-3 sm:ml-0 sm:h-8 w-50 sw:50"
       alt="Flowbite Logo"
     />

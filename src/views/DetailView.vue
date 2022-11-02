@@ -1,11 +1,64 @@
 <script setup>
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { onMounted, ref, computed } from "vue";
+import axios from "axios";
+import { RouterLink, useRoute } from "vue-router";
+import router from "../router";
+
 const defaultImage = ref();
-const galleries = ref({});
+const imageGalleries = ref({});
+const product = ref(false);
+const route = useRoute();
+
+const goBack = () => {
+  router.go(-1);
+};
+
+const loaded = () => {
+  axios
+    .get("http://localhost:8000/api/products?id=" + route.params.id)
+    .then((response) => {
+      let { data } = response.data;
+      // defaultImage.value = data.thumbnails;
+      //imageGalleries.value = data.galleries;
+      console.log(data);
+      product.value = data;
+    })
+    .catch((error) => {
+      let { response } = error;
+      console.log(response);
+    });
+};
+
+const features = computed(() => {
+  return product.value.features.split(",");
+});
+
+onMounted: {
+  loaded();
+}
 </script>
 <template>
   <div class="container p-2 mx-auto my-10 max-w-7xl">
+    <button
+      @click="goBack"
+      type="button"
+      class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-left-short"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"
+        />
+      </svg>
+      <span class="sr-only">Icon description</span>
+    </button>
     <div class="flex flex-row flex-wrap py-4">
       <main role="main" class="w-full px-4 pt-1 sm:w-2/3 md:w-2/3">
         <h1
@@ -13,67 +66,36 @@ const galleries = ref({});
         >
           RoboCrypto UI Kit
         </h1>
-        <p class="text-gray-500">Build your next coin startup</p>
+        <p class="text-gray-500">{{ product.subtitle }}</p>
         <section id="gallery">
           <img
-            :src="'@/assets/img/' + defaultImage"
+            :src="product.thumbnails"
             alt=""
             class="w-full mt-6 rounded-2xl"
           />
           <div class="grid grid-cols-4 gap-4 mt-4">
-            <template v-for="gallery in galleries" :key="gallery.id">
+            <template v-for="gallery in product.galleries" :key="gallery.id">
               <div
-                @click="defaultImage = gallery.imageUrl"
+                @click="product.thumbnails = gallery.url"
                 class="overflow-hidden cursor-pointer rounded-2xl"
                 :class="{
-                  'ring-2 ring-indigo-500': defaultImage == gallery.imageUrl,
+                  'ring-2 ring-indigo-500': product.thumbnails == gallery.url,
                 }"
               >
-                <img
-                  :src="'src/assets/img/' + gallery.imageUrl"
-                  class="w-full"
-                  alt=""
-                />
+                <img :src="gallery.url" class="w-full" alt="" />
               </div>
             </template>
-            <!-- <div
-              class="overflow-hidden cursor-pointer ring-2 ring-indigo-500 rounded-2xl"
-            >
-              <img src="@/assets/img/gallery-3.png" class="w-full" alt="" />
-            </div>
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="@/assets/img/gallery-4.png" class="w-full" alt="" />
-            </div>
-            <div class="overflow-hidden cursor-pointer rounded-2xl">
-              <img src="@/assets/img/gallery-5.png" class="w-full" alt="" />
-            </div>
-            !-->
           </div>
         </section>
         <section class="" id="orders">
           <h1 class="mt-8 mb-3 text-lg font-semibold">About</h1>
-          <div class="text-gray-500">
-            <p class="pb-4">
-              Sportly App UI Kit will help your Sport, Fitness, and Workout App
-              products or services. Came with modern and sporty style, you can
-              easily edit and customize all elements with components that can
-              speed up your design process.
-            </p>
-            <p class="pb-4">
-              Suitable for : <br />
-              - Sport App <br />
-              - Fitness & GYM App <br />
-              - Workout App <br />
-              - Trainer & Tracker App <br />
-              - And many more <br />
-            </p>
-          </div>
+          <div class="text-gray-500" v-html="product.description"></div>
         </section>
       </main>
       <aside class="w-full px-4 sm:w-1/3 md:w-1/3">
         <div class="sticky top-0 w-full pt-4 md:mt-24">
           <div class="p-6 border rounded-2xl">
-            <div class="mb-4">
+            <div class="mb-4" v-if="product.is_figma == 1">
               <div class="flex mb-2">
                 <div>
                   <img src="@/assets/img/icon-figma.png" alt="" class="w-16" />
@@ -84,8 +106,9 @@ const galleries = ref({});
                 </div>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-4" v-if="product.is_sketch == 1">
               <div class="flex mb-2">
+                .de
                 <div>
                   <img src="@/assets/img/icon-sketch.png" alt="" class="w-16" />
                 </div>
@@ -97,33 +120,14 @@ const galleries = ref({});
             </div>
             <div>
               <h1 class="mt-5 mb-3 font-semibold text-md">Great Features</h1>
-              <ul class="mb-6 text-gray-500">
-                <li class="mb-2">
-                  Customizable layers
-                  <img
-                    src="@/assets/img/icon-check.png"
-                    class="float-right w-5 mt-1"
-                    alt=""
-                  />
-                </li>
-                <li class="mb-2">
-                  Documentation
-                  <img
-                    src="@/assets/img/icon-check.png"
-                    class="float-right w-5 mt-1"
-                    alt=""
-                  />
-                </li>
-                <li class="mb-2">
-                  Icon set design
-                  <img
-                    src="@/assets/img/icon-check.png"
-                    class="float-right w-5 mt-1"
-                    alt=""
-                  />
-                </li>
-                <li class="mb-2">
-                  Pre-built UI screens
+              <!-- jika data ada panggil data featre jika tidak panggil default product yaitu false -->
+              <ul class="mb-6 text-gray-500" v-if="product">
+                <li
+                  class="mb-2"
+                  v-for="feature in features"
+                  :key="feature.index"
+                >
+                  {{ feature }}
                   <img
                     src="@/assets/img/icon-check.png"
                     class="float-right w-5 mt-1"
