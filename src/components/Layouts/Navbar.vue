@@ -6,26 +6,47 @@ import Logo from "./Logo.vue";
 
 //memanggil store
 const userStore = useUserStore();
+let user = userStore.getUser;
 let isLoggedIn = computed(() => userStore.isLoggedIn);
-let getUser = computed(() => userStore.getUser);
-let user = computed(() => userStore.user);
+// /let getUser = computed(() => userStore.getUser);
+
+const logout = () => {};
+
 onMounted: {
   userStore.fetchUser();
 }
 </script>
 <template>
   <nav
-    class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800"
+    class="
+      bg-white
+      border-gray-200
+      px-2
+      sm:px-4
+      py-2.5
+      rounded
+      dark:bg-gray-800
+    "
   >
     <div
       class="container flex flex-wrap items-center justify-between mx-auto my-2"
     >
       <Logo />
+
       <div class="flex items-center md:order-2" v-if="isLoggedIn">
         <div class="mr-2 text-sm font-regular">Halo, {{ user.name }}</div>
         <button
           type="button"
-          class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+          class="
+            flex
+            mr-3
+            text-sm
+            bg-gray-800
+            rounded-full
+            md:mr-0
+            focus:ring-4 focus:ring-gray-300
+            dark:focus:ring-gray-600
+          "
           id="user-menu-button"
           aria-expanded="false"
           data-dropdown-toggle="dropdown"
@@ -39,7 +60,18 @@ onMounted: {
         </button>
 
         <div
-          class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
+          class="
+            z-50
+            hidden
+            my-4
+            text-base
+            list-none
+            bg-white
+            divide-y divide-gray-100
+            rounded
+            shadow
+            dark:bg-gray-700 dark:divide-gray-600
+          "
           id="dropdown"
         >
           <div class="px-4 py-3">
@@ -47,7 +79,13 @@ onMounted: {
               user.name
             }}</span>
             <span
-              class="block text-sm text-gray-500 truncate font-regular dark:text-gray-400"
+              class="
+                block
+                text-sm text-gray-500
+                truncate
+                font-regular
+                dark:text-gray-400
+              "
               >{{ user.email }}</span
             >
           </div>
@@ -55,21 +93,48 @@ onMounted: {
             <li>
               <a
                 href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                class="
+                  block
+                  px-4
+                  py-2
+                  text-sm text-gray-700
+                  hover:bg-gray-100
+                  dark:hover:bg-gray-600
+                  dark:text-gray-200
+                  dark:hover:text-white
+                "
                 >Subscriptions</a
               >
             </li>
             <li>
               <a
                 href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                class="
+                  block
+                  px-4
+                  py-2
+                  text-sm text-gray-700
+                  hover:bg-gray-100
+                  dark:hover:bg-gray-600
+                  dark:text-gray-200
+                  dark:hover:text-white
+                "
                 >Settings</a
               >
             </li>
             <li>
               <a
                 href="#"
-                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                class="
+                  block
+                  px-4
+                  py-2
+                  text-sm text-gray-700
+                  hover:bg-gray-100
+                  dark:hover:bg-gray-600
+                  dark:text-gray-200
+                  dark:hover:text-white
+                "
                 >Sign out</a
               >
             </li>
@@ -78,7 +143,18 @@ onMounted: {
         <button
           data-collapse-toggle="mobile-menu-2"
           type="button"
-          class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          class="
+            inline-flex
+            items-center
+            p-2
+            ml-1
+            text-sm text-gray-500
+            rounded-lg
+            md:hidden
+            hover:bg-gray-100
+            focus:outline-none focus:ring-2 focus:ring-gray-200
+            dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600
+          "
           aria-controls="mobile-menu-2"
           aria-expanded="false"
         >
@@ -109,32 +185,88 @@ onMounted: {
           </svg>
         </button>
       </div>
+
       <!--- Guest -->
+
       <div class="md:order-2" v-else>
         <RouterLink
           to="/login"
-          class="px-8 py-3 mt-2 mr-2 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-sm md:px-8 hover:shadow"
+          class="
+            px-8
+            py-3
+            mt-2
+            mr-2
+            text-base
+            font-medium
+            text-black
+            bg-gray-200
+            border border-transparent
+            rounded-full
+            hover:bg-gray-300
+            md:py-2 md:text-sm md:px-8
+            hover:shadow
+          "
         >
           Sign In
         </RouterLink>
         <RouterLink
           to="/register"
-          class="px-8 py-3 text-base font-medium text-white border border-transparent rounded-full bg-navy hover:bg-navy md:py-2 md:text-sm md:px-8 hover:shadow"
+          class="
+            px-8
+            py-3
+            text-base
+            font-medium
+            text-white
+            border border-transparent
+            rounded-full
+            bg-navy
+            hover:bg-navy
+            md:py-2 md:text-sm md:px-8
+            hover:shadow
+          "
         >
           Sign Up
         </RouterLink>
       </div>
       <div
-        class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        class="
+          items-center
+          justify-between
+          hidden
+          w-full
+          md:flex md:w-auto md:order-1
+        "
         id="mobile-menu-2"
       >
         <ul
-          class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-regular"
+          class="
+            flex flex-col
+            mt-4
+            md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-regular
+          "
         >
           <li>
             <RouterLink
               to="/"
-              class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text- indigo-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark: hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              class="
+                block
+                py-2
+                pl-3
+                pr-4
+                text-gray-700
+                border-b border-gray-100
+                hover:bg-gray-50
+                md:hover:bg-transparent md:border-0 md:hover:text-
+                indigo-600
+                md:p-0
+                dark:text-gray-400
+                md:dark:hover:text-white
+                dark:
+                hover:bg-gray-700
+                dark:hover:text-white
+                md:dark:hover:bg-transparent
+                dark:border-gray-700
+              "
               aria-current="page"
               >Home</RouterLink
             >
@@ -142,21 +274,72 @@ onMounted: {
           <li>
             <RouterLink
               to="/categories"
-              class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-indigo-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              class="
+                block
+                py-2
+                pl-3
+                pr-4
+                text-gray-700
+                border-b border-gray-100
+                hover:bg-gray-50
+                md:hover:bg-transparent
+                md:border-0
+                md:hover:text-indigo-600
+                md:p-0
+                dark:text-gray-400
+                md:dark:hover:text-white
+                dark:hover:bg-gray-700 dark:hover:text-white
+                md:dark:hover:bg-transparent
+                dark:border-gray-700
+              "
               >Categories</RouterLink
             >
           </li>
           <li>
             <RouterLink
               to="/"
-              class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-indigo-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              class="
+                block
+                py-2
+                pl-3
+                pr-4
+                text-gray-700
+                border-b border-gray-100
+                hover:bg-gray-50
+                md:hover:bg-transparent
+                md:border-0
+                md:hover:text-indigo-600
+                md:p-0
+                dark:text-gray-400
+                md:dark:hover:text-white
+                dark:hover:bg-gray-700 dark:hover:text-white
+                md:dark:hover:bg-transparent
+                dark:border-gray-700
+              "
               >Pricing</RouterLink
             >
           </li>
           <li>
             <RouterLink
               to="/"
-              class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-indigo-600 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              class="
+                block
+                py-2
+                pl-3
+                pr-4
+                text-gray-700
+                border-b border-gray-100
+                hover:bg-gray-50
+                md:hover:bg-transparent
+                md:border-0
+                md:hover:text-indigo-600
+                md:p-0
+                dark:text-gray-400
+                md:dark:hover:text-white
+                dark:hover:bg-gray-700 dark:hover:text-white
+                md:dark:hover:bg-transparent
+                dark:border-gray-700
+              "
               >Study Case</RouterLink
             >
           </li>

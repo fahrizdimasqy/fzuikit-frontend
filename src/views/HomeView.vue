@@ -62,9 +62,10 @@ onMounted: {
               <p
                 class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
               >
-                fzuikit is there to make it easier for developers and ui/ux
-                <span class="block lg:mb-1"></span> of ready-to-use design
-                projects.
+                <span>fzuikit is there to make it easier for developers</span>
+                <span class="block lg:mb-1"
+                  >and ui/ux of ready-to-use design projects.</span
+                >
               </p>
               <div
                 class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
