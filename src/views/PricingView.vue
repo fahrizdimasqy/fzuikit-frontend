@@ -1,5 +1,45 @@
 <script setup>
+import { onMounted } from "@vue/runtime-core";
+import axios from "axios";
 import { RouterLink } from "vue-router";
+const checkout = (price) => {
+  axios
+    .post(
+      "https://0aca-103-247-196-151.ap.ngrok.io/api/checkout",
+      {
+        payment_total: price,
+        payment_status: "PENDING",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
+    .then((response) => {
+      let { data } = response.data;
+      window.location.href = data.payment_url;
+    });
+};
+// async function checkout(price) {
+//   try {
+//     const response = await axios.post(
+//       "https://593a-103-247-196-225.ap.ngrok.io/api/checkout",
+//       {
+//         payment_total: price,
+//         payment_status: "PENDING",
+//       },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+//         },
+//       }
+//     );
+//     window.location.href = response.data.data.payment_url;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 </script>
 <template>
   <div class="relative overflow-hidden bg-white">
@@ -19,7 +59,7 @@ import { RouterLink } from "vue-router";
             <div>
               <div class="p-8 border rounded-3xl">
                 <h1 class="text-5xl font-semibold">
-                  IDR 2,000
+                  IDR 25,000
                   <span class="text-xl font-light text-gray-500">/month</span>
                 </h1>
                 <h2 class="text-lg font-semibold mt-7">Basic Plan</h2>
@@ -66,18 +106,34 @@ import { RouterLink } from "vue-router";
                     Pre-built design screen
                   </li>
                 </ul>
-                <RouterLink
-                  to="/success"
-                  class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-md md:px-10 hover:shadow"
+                <button
+                  @click="checkout(25000)"
+                  class="
+                    inline-flex
+                    items-center
+                    justify-center
+                    w-full
+                    px-8
+                    py-3
+                    text-base
+                    font-medium
+                    text-black
+                    bg-gray-200
+                    border border-transparent
+                    rounded-full
+                    hover:bg-gray-300
+                    md:py-2 md:text-md md:px-10
+                    hover:shadow
+                  "
                 >
                   Checkout Now
-                </RouterLink>
+                </button>
               </div>
             </div>
             <div>
               <div class="p-8 border rounded-3xl">
                 <h1 class="text-5xl font-semibold">
-                  IDR 9,000
+                  IDR 50,000
                   <span class="text-xl font-light text-gray-500">/month</span>
                 </h1>
                 <h2 class="text-lg font-semibold mt-7">Gold Plan</h2>
@@ -156,12 +212,28 @@ import { RouterLink } from "vue-router";
                     Unlock cloning app
                   </li>
                 </ul>
-                <RouterLink
-                  to="/success"
-                  class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
+                <button
+                  @click="checkout(50000)"
+                  class="
+                    inline-flex
+                    items-center
+                    justify-center
+                    w-full
+                    px-8
+                    py-3
+                    text-base
+                    font-medium
+                    text-white
+                    bg-indigo-600
+                    border border-transparent
+                    rounded-full
+                    hover:bg-indigo-700
+                    md:py-2 md:text-md md:px-10
+                    hover:shadow
+                  "
                 >
                   Checkout Now
-                </RouterLink>
+                </button>
               </div>
             </div>
           </div>

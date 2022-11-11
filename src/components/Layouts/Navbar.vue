@@ -1,4 +1,5 @@
 <script setup>
+import axios from "axios";
 import { onMounted, computed } from "vue";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "../../stores/user";
@@ -10,7 +11,26 @@ let user = userStore.getUser;
 let isLoggedIn = computed(() => userStore.isLoggedIn);
 // /let getUser = computed(() => userStore.getUser);
 
-const logout = () => {};
+const logout = () => {
+  let config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+    },
+  };
+  axios
+    .post("http://localhost:8000/api/logout", {}, config)
+    .then(() => {
+      // let { data } = response.data;
+      localStorage.setItem("access_token", null);
+      localStorage.setItem("token_type", null);
+      userStore.fetchUser();
+      router.push("/");
+    })
+    .catch((response) => {
+      let { error } = error.response;
+      console.log(error);
+    });
+};
 
 onMounted: {
   userStore.fetchUser();
@@ -34,6 +54,18 @@ onMounted: {
       <Logo />
 
       <div class="flex items-center md:order-2" v-if="isLoggedIn">
+        <button
+          @click="logout"
+          class="
+            bg-gray-800
+            rounded-full
+            focus:ring-4 focus:ring-gray-300
+            dark:focus:ring-gray-600
+            mr-3
+          "
+        >
+          Logout
+        </button>
         <div class="mr-2 text-sm font-regular">Halo, {{ user.name }}</div>
         <button
           type="button"

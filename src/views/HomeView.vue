@@ -38,14 +38,13 @@ onMounted: {
   getDataProducts();
 }
 </script>
-
 <template>
   <main>
     <!-- Hero -->
     <div class="relative overflow-hidden bg-white">
       <div class="mx-auto max-w-7xl">
         <div
-          class="z-10 px-5 pb-8 bg-white xl:pl-20 lg:pl-16 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
+          class="z-10 px-5 pb-8 bg-white xl:pl-20 lg:pl-16 sm:pb-16 md:pb-20 lg: max-w-2xl lg:w-full xlg:pb-28 xl:pb-32"
         >
           <main
             class="mx-auto mt-10 max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-36"

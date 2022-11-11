@@ -3,11 +3,16 @@ import { onMounted, ref, computed } from "vue";
 import axios from "axios";
 import { RouterLink, useRoute } from "vue-router";
 import router from "../router";
+import { useUserStore } from "@/stores/user";
 
 const defaultImage = ref();
 const imageGalleries = ref({});
-const product = ref(false);
 const route = useRoute();
+const userStore = useUserStore();
+let user = userStore.getUser;
+let isLoggedIn = computed(() => userStore.isLoggedIn);
+
+const product = ref(false);
 
 const goBack = () => {
   router.go(-1);
@@ -34,6 +39,7 @@ const features = computed(() => {
 });
 
 onMounted: {
+  userStore.fetchUser();
   loaded();
 }
 </script>
@@ -42,7 +48,24 @@ onMounted: {
     <button
       @click="goBack"
       type="button"
-      class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+      class="
+        text-blue-700
+        border border-blue-700
+        hover:bg-blue-700 hover:text-white
+        focus:ring-4 focus:outline-none focus:ring-blue-300
+        font-medium
+        rounded-lg
+        text-sm
+        p-2.5
+        text-center
+        inline-flex
+        items-center
+        mr-2
+        dark:border-blue-500
+        dark:text-blue-500
+        dark:hover:text-white
+        dark:focus:ring-blue-800
+      "
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +85,16 @@ onMounted: {
     <div class="flex flex-row flex-wrap py-4">
       <main role="main" class="w-full px-4 pt-1 sm:w-2/3 md:w-2/3">
         <h1
-          class="mb-2 text-3xl font-bold leading-normal tracking-tight text-gray-900 sm:text-4xl md:text-4xl"
+          class="
+            mb-2
+            text-3xl
+            font-bold
+            leading-normal
+            tracking-tight
+            text-gray-900
+            sm:text-4xl
+            md:text-4xl
+          "
         >
           RoboCrypto UI Kit
         </h1>
@@ -136,12 +168,54 @@ onMounted: {
                 </li>
               </ul>
             </div>
-            <RouterLink
-              to="/pricing"
-              class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
-            >
-              Download Now
-            </RouterLink>
+            <template v-if="user.subscription.length > 0">
+              <a
+                :href="product.file"
+                class="
+                  inline-flex
+                  items-center
+                  justify-center
+                  w-full
+                  px-8
+                  py-3
+                  text-base
+                  font-medium
+                  text-white
+                  bg-indigo-600
+                  border border-transparent
+                  rounded-full
+                  hover:bg-indigo-700
+                  md:py-2 md:text-md md:px-10
+                  hover:shadow
+                "
+              >
+                Download Now
+              </a>
+            </template>
+            <template v-else>
+              <RouterLink
+                to="/pricing"
+                class="
+                  inline-flex
+                  items-center
+                  justify-center
+                  w-full
+                  px-8
+                  py-3
+                  text-base
+                  font-medium
+                  text-white
+                  bg-indigo-600
+                  border border-transparent
+                  rounded-full
+                  hover:bg-indigo-700
+                  md:py-2 md:text-md md:px-10
+                  hover:shadow
+                "
+              >
+                Subscribe
+              </RouterLink>
+            </template>
           </div>
         </div>
       </aside>
